@@ -134,7 +134,7 @@ public class MainActivity extends Activity {
         // update the main content by replacing fragments
         Fragment fragment = new PlanetFragment();
         Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+        args.putInt(PlanetFragment.ARG_INDEX_NUMBER, position);
         fragment.setArguments(args);
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -175,7 +175,7 @@ public class MainActivity extends Activity {
      * Fragment that appears in the "content_frame", shows a planet
      */
     public static class PlanetFragment extends Fragment {
-        public static final String ARG_PLANET_NUMBER = "planet_number";
+        public static final String ARG_INDEX_NUMBER = "index_number";
 
         public PlanetFragment() {
             // Empty constructor required for fragment subclasses
@@ -185,7 +185,7 @@ public class MainActivity extends Activity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
-            int i = getArguments().getInt(ARG_PLANET_NUMBER);
+            int i = getArguments().getInt(ARG_INDEX_NUMBER);
             String planet = getResources().getStringArray(R.array.catalog)[i];
 
             int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
