@@ -3,7 +3,6 @@ package com.azuresong.bluetoothserial;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -18,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
@@ -52,8 +52,7 @@ public class MainActivity extends Activity {
                 mDrawerLayout,
                 R.drawable.ic_drawer,
                 R.string.drawer_open,
-                R.string.drawer_close
-        ) {
+                R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(mTitle);
                 invalidateOptionsMenu();
@@ -124,15 +123,21 @@ public class MainActivity extends Activity {
 
         switch (position) {
             case 0:
+                Toast.makeText(MainActivity.this, "You clicked Discover...", Toast.LENGTH_SHORT).show();
+                // TODO: 2016/10/13 蓝牙扫描连接模块
                 break;
             case 1:
+                Toast.makeText(MainActivity.this, "You clicked Chats...", Toast.LENGTH_SHORT).show();
+                // TODO: 2016/10/13 数据流发送接收模块
                 break;
             case 2:
+                Toast.makeText(MainActivity.this, "You clicked Custom...", Toast.LENGTH_SHORT).show();
+                // TODO: 2016/10/13 用户自定义模块
                 break;
             case 3:
-                Intent intent = new Intent(MainActivity.this, GithubActivity.class);
-                startActivity(intent);
-                // TODO: 2016/10/13 打开个人信息页  (打开信息页闪退...)
+                Toast.makeText(MainActivity.this, "You clicked Github...", Toast.LENGTH_SHORT).show();
+                // TODO: 2016/10/13 Github信息模块
+                
                 break;
         }
     }
@@ -168,10 +173,6 @@ public class MainActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_planet, container, false);
             int i = getArguments().getInt(ARG_INDEX_NUMBER);
             String planet = getResources().getStringArray(R.array.catalog)[i];
-//
-//            int imageId = getResources().getIdentifier(planet.toLowerCase(Locale.getDefault()),
-//                    "drawable", getActivity().getPackageName());
-//            ((ImageView) rootView.findViewById(R.id.image)).setImageResource(imageId);
             getActivity().setTitle(planet);
             return rootView;
         }
