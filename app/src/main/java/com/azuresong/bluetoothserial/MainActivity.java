@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
@@ -43,6 +42,7 @@ public class MainActivity extends Activity {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mCatalog));
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
@@ -107,40 +107,59 @@ public class MainActivity extends Activity {
     }
 
     private void selectItem(int position) {
-        // update the main content by replacing fragments
-        Fragment fragment = new PlanetFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_INDEX_NUMBER, position);
-        fragment.setArguments(args);
 
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
-        // update selected item and title, then close the drawer
-        mDrawerList.setItemChecked(position, true);
-        setTitle(mCatalog[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
-
+        DiscoverFragment fragment = null;
         switch (position) {
             case 0:
-                Toast.makeText(MainActivity.this, "You clicked Discover...", Toast.LENGTH_SHORT).show();
-                // TODO: 2016/10/13 蓝牙扫描连接模块
+                fragment = new DiscoverFragment();
                 break;
-            case 1:
-                Toast.makeText(MainActivity.this, "You clicked Chats...", Toast.LENGTH_SHORT).show();
-                // TODO: 2016/10/13 数据流发送接收模块
-                break;
-            case 2:
-                Toast.makeText(MainActivity.this, "You clicked Custom...", Toast.LENGTH_SHORT).show();
-                // TODO: 2016/10/13 用户自定义模块
-                break;
-            case 3:
-                Toast.makeText(MainActivity.this, "You clicked Github...", Toast.LENGTH_SHORT).show();
-                // TODO: 2016/10/13 Github信息模块
-                
+
+            default:
                 break;
         }
+
+        if (fragment != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+
+            mDrawerList.setItemChecked(position, true);
+            setTitle(mCatalog[position]);
+            mDrawerLayout.closeDrawer(mDrawerList);
+        }
+
+//        Fragment fragment = new PlanetFragment();
+//        Bundle args = new Bundle();
+//        args.putInt(PlanetFragment.ARG_INDEX_NUMBER, position);
+//        fragment.setArguments(args);
+//
+//        FragmentManager fragmentManager = getFragmentManager();
+//        fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+//
+//        mDrawerList.setItemChecked(position, true);
+//        setTitle(mCatalog[position]);
+//        mDrawerLayout.closeDrawer(mDrawerList);
+
+//        switch (position) {
+//            case 0:
+//                Toast.makeText(MainActivity.this, "You clicked Discover...", Toast.LENGTH_SHORT).show();
+//                // TODO: 2016/10/13 蓝牙扫描连接模块
+//                break;
+//            case 1:
+//                Toast.makeText(MainActivity.this, "You clicked Chats...", Toast.LENGTH_SHORT).show();
+//                // TODO: 2016/10/13 数据流发送接收模块
+//                break;
+//            case 2:
+//                Toast.makeText(MainActivity.this, "You clicked Custom...", Toast.LENGTH_SHORT).show();
+//                // TODO: 2016/10/13 用户自定义模块
+//                break;
+//            case 3:
+//                Toast.makeText(MainActivity.this, "You clicked Github...", Toast.LENGTH_SHORT).show();
+//                // TODO: 2016/10/13 Github信息模块
+//
+//                break;
+//        }
     }
+
 
     @Override
     public void setTitle(CharSequence title) {
